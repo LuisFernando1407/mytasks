@@ -23,7 +23,7 @@ angular.module('myApp')
         obj.getUserBySessionId = function (id) {
             return $http.get(BASE + 'users/' + id);
         };
-
+        /* Get user by email and password */
         obj.getUserByEmailPassword = function (email, password){
             return $http.get(BASE + 'users/' + email + '/' + password);
         };
