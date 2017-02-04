@@ -8,29 +8,24 @@
  * Controller of the myApp
  */
 angular.module('myApp')
-    /* Anotação
-        Direcitve
-         => <my-card> === 'myCard'
-         => <mycard> === 'mycard'
-         => <my-card-component> === 'myCardComponent'
-     */
     .controller('MainCtrl', function ($scope, FactoryUser) {
-        var url = this;
         /* Post => Return Id*/
         $scope.register = function (user) {
             FactoryUser.postUser(user).then(function (res) {
-                window.localStorage['sessionId'] = res.data[0].id;
+                    window.localStorage['sessionId'] = res.data[0].id;
             });
             $scope.data.firstname = "";
             $scope.data.lastname = "";
             $scope.data.email = "";
             $scope.data.password = "";
         };
-
         $scope.login = function (user) {
             FactoryUser.getUserByEmailPassword(user.email, user.password).then(function (res) {
-                window.localStorage['sessionId'] = res.data[0].id;
-                console.log(res.data[0].id)
+                if(res.data.length !== 0){
+                    window.localStorage['sessionId'] = res.data[0].id;
+                }else{
+                    $scope.alertLoginError = true;
+                }
             });
         };
         $scope.$on('$routeChangeStart', function(next, current) {
@@ -41,8 +36,9 @@ angular.module('myApp')
             }
         });
         $scope.cleanDataStorage = function () {
-            localStorage.removeItem('auth');
+            window.localStorage.removeItem('auth');
+            window.lacalStorage.removeItem('interceptor');
+            window.location.reload();
         };
-        $scope.auth = typeof localStorage['auth'] !== 'undefined';
-
+        $scope.auth = typeof window.localStorage['auth'] !== 'undefined';
     });

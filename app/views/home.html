@@ -4,23 +4,23 @@
             <div class="side-bar">
                 <ul>
                     <li class="menu-head">
-                        My Task <a href="javascrip:void(0);" class="push_menu"><span class="glyphicon glyphicon-menu-hamburger pull-right"></span></a>
+                       My Task <a href="javascrip:void(0);" class="push_menu"><span class="glyphicon glyphicon-menu-hamburger pull-right"></span></a>
                     </li>
                     <div class="menu">
                         <li>
-                            <a href="#" class="active">Dashboard <span class="glyphicon glyphicon-dashboard pull-right"></span></a>
+                            <a href="javascrip:void(0);" id="dashbord" class="active">Dashboard <span class="glyphicon glyphicon-dashboard pull-right"></span></a>
                         </li>
                         <li>
-                            <a href="#">Task <span class="badge">5</span><span class="glyphicon glyphicon-th-list pull-right"></span></a>
+                            <a href="javascrip:void(0);" id="task">Task <span class="badge">{{badge}}</span><span class="glyphicon glyphicon-tasks pull-right"></span></a>
                         </li>
                         <li>
-                            <a href="#">Favorite<span class="glyphicon glyphicon-star pull-right"></span></a>
+                            <a href="javascrip:void(0);" id="favorite" data-toggle="popover" title="Notification" data-content="Sorry, it's still being implemented.">Favorite<span class="glyphicon glyphicon-star pull-right"></span></a>
+                        </li>
+                        <li>
+                            <a href="javascrip:void(0);" id="settings"  data-toggle="popover" title="Notification" data-content="Sorry, it's still being implemented.">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a>
                         </li>
                         <li>
                             <a href="#" ng-click="logout()">Logout <span class="glyphicon glyphicon-log-out pull-right"></span></a>
-                        </li>
-                        <li>
-                            <a href="#">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a>
                         </li>
                     </div>
                 </ul>
@@ -29,11 +29,143 @@
 </div>
 </div>
     <div class="content">
-        <div class="col-md-12">
+        <div id="dash" class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Welcome, {{response.firstname}}</div>
+                <div  ng-if="badge > 0" class="panel-body">
+                    <span>You have {{badge}} pending task</span>
+                </div>
+                <div  ng-if="badge === 0" class="panel-body">
+                    <span>Add a task :)</span>
+                </div>
+            </div>
+        </div>
+        <div id="tas" class="col-md-12 hidden">
+            <button id="newTask" class="btn btn-primary" data-toggle="collapse" data-target="#demo"> Add new task</button>
+            <br>
+            <br>
+            <div id="demo" class="collapse">
+            <div class="panel panel-default">
+                <div class="panel-heading">Add new  task, {{response.firstname}}</div>
                 <div class="panel-body">
-                    Five task pending.
+                    <div class="task">
+                        <div class="taskregistration">
+                            <div ng-if="registration " class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                                <strong>Success!</strong><hr>
+                                <p>Task add with success!</p>
+                            </div>
+                        </div>
+                        <form class="form-horizontal" ng-submit="registerTask(task)">
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="text" ng-model="task.title" required class="form-control" id="inputEmail3" placeholder="Title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <textarea ng-model="task.task" required class="form-control" rows="3" id="comment" placeholder="Task"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <input type="text" ng-model="task.remember" id="remember" class="form-control" placeholder="Remember">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <span>Favorite </span>
+                                <div class="btn-group btn-toggle">
+                                    <button type="button" value="1" class="btn btn-sm btn-default">Yes</button>
+                                    <button type="button" value="0" class="btn btn-sm btn-primary active">No</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-task-register btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="list-group">
+                <p class="list-group-item active">
+                    My task annotation
+                </p>
+                <div ng-if="badge === 0" class="panel panel-info">
+                    <div class="panel-body">Sorry, no tasks found</div>
+                </div>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div ng-repeat="ts in tasks" class="panel panel-default">
+                        <div class="panel-heading" role="tab">
+                            <h4 class="panel-title">
+                                <a href="javascrip:void(0);" class="text-nowrap" ng-init="toggle[$index] = false"  ng-click="toggle[$index] = !toggle[$index]">
+                                    <span class="glyphicon glyphicon-plus-sign" ng-if="!toggle[$index]"></span>
+                                    <span class="glyphicon glyphicon-minus-sign" ng-if="toggle[$index]"></span>
+                                    {{ts.title}}
+                                </a>
+                            </h4>
+                        </div>
+                        <div ng-if="toggle[$index]">
+                        <div class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <div class="taskalertOptions">
+                                    <div ng-if="edit " class="alert alert-success alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                                        <strong>Success!</strong><hr>
+                                        <p>Task adited with success!</p>
+                                    </div>
+                                    <div ng-if="delete" class="alert alert-success alert-dismissable">
+                                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                                        <strong>Success!</strong><hr>
+                                        <p>Task deleted with success!</p>
+                                    </div>
+                                </div>
+                                <div class="taskedit">
+                                <form method="PUT" class="form-horizontal" ng-submit="putTask(ts)">
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <input type="text" ng-model="ts.title" required class="form-control" placeholder="Title">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <textarea ng-model="ts.task_user" required class="form-control" rows="3" placeholder="Task"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <input type="text" ng-model="ts.remember" id="remember_me" class="form-control" placeholder="Remember">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <span>Favorite</span><hr>
+                                            <span class="label label-success">1 = Yes</span>
+                                            <span class="label label-default">0 = No</span>
+                                        </div>
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <br>
+                                                <input pattern="[0-9]+$" type="text" ng-model="ts.favorite" class="form-control">
+                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <div class="btn-group btn-group-justified" role="group">
+                                                <button class="btn btn-task btn-primary">Edit</button>
+                                                <button type="button" ng-click="deleteTask(ts.id)" class="btn btn-task btn-danger">Delete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,5 +178,31 @@
         $(".push_menu").click(function(){
             $(".wrapper").toggleClass("active");
         });
+        $("#task").click(function () {
+            $(".col-md-12").removeClass('hidden');
+            $("#tas").show("slow");
+            $("#dash").hide("slow");
+        });
+        $("#dashbord").click(function () {
+            $("#dash").show("slow");
+            $("#tas").hide("slow");
+        });
+        $('#remember').datepicker({
+            format: "dd/mm/yyyy",
+            language: "pt-BR",
+            minViewMode: 0
+        });
+        $('.btn-toggle').click(function () {
+           $(this).find('.btn').toggleClass('active');
+           if($(this).find('.btn-primary').length > 0){
+               $(this).find('.btn').toggleClass('btn-primary');
+
+           }
+        });
+        $('#newTask').click(function () {
+            $(".side-bar").css("height", "155%");
+        });
+        $('#favorite').popover();
+        $('#settings').popover();
     });
 </script>

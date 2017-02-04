@@ -10,6 +10,15 @@
         <p>Descrição: Usuário não autenticado!</p>
     </div>
 </div>
+<div class="authstatus">
+    <div ng-if="alertLoginError" class="alert alert-warning alert-dismissable">
+        <button ng-click="cleanDataStorage()" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+        <strong>Atenção!</strong>
+        <hr>
+        <p>Status code: 404</p>
+        <p>Descrição: Usuário não encontrado!</p>
+    </div>
+</div>
 <div class="form">
     <ul class="tab-group">
         <li class="tab active"><a href="#signup">Sign Up</a></li>

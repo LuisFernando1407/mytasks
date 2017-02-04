@@ -182,3 +182,9 @@ textarea {
     margin: -30px auto;
     border-radius: 4px;
 }
+.popover-title{
+  background-color: rgba(19, 35, 47, 0.9);
+}
+.popover-content{
+    color: #000;
+}

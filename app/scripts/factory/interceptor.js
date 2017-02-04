@@ -15,7 +15,7 @@ angular.module('myApp')
         return {
             request: function (config) {
                 if(typeof window.localStorage['sessionId'] === 'undefined'){
-                    $location.path('/');
+                    $location.url('/');
                 }
                 return config;
             }

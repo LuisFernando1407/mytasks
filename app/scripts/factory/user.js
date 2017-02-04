@@ -15,10 +15,6 @@ angular.module('myApp')
         /* Server Node.js */
         var BASE = 'http://localhost:3000/';
         var obj = {};
-        /* Get all users */
-        obj.getAllUser = function() {
-            return $http.get(BASE + 'users');
-        };
         /* Get user from Session */
         obj.getUserBySessionId = function (id) {
             return $http.get(BASE + 'users/' + id);
