@@ -1,9 +1,6 @@
 /**
  * Created by luis1 on 03/02/2017.
  */
-/**
- * Created by luis1 on 31/01/2017.
- */
 'use strict';
 
 /**
