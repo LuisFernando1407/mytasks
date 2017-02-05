@@ -14,8 +14,13 @@ angular.module('myApp')
     .factory('InterceptorAuth', function ($location) {
         return {
             request: function (config) {
+                var url = location.href === 'http://localhost:63342/angularjs/app/#!/forgot';
                 if(typeof window.localStorage['sessionId'] === 'undefined'){
-                    $location.url('/');
+                    if(url){
+                        $location.url('/forgot')
+                    }else{
+                        $location.url('/');
+                    }
                 }
                 return config;
             }

@@ -8,37 +8,39 @@
  * Controller of the myApp
  */
 angular.module('myApp')
-    .controller('MainCtrl', function ($scope, FactoryUser) {
+    .controller('MainCtrl', function ($scope, $location, FactoryUser) {
         /* Post => Return Id*/
-        $scope.register = function (user) {
+        $scope.registerUser = function (user) {
             FactoryUser.postUser(user).then(function (res) {
                     window.localStorage['sessionId'] = res.data[0].id;
+                    $location.url('/home');
             });
-            $scope.data.firstname = "";
-            $scope.data.lastname = "";
-            $scope.data.email = "";
-            $scope.data.password = "";
+            $scope.userRegister.firstname = "";
+            $scope.userRegister.lastname = "";
+            $scope.userRegister.email = "";
+            $scope.userRegister.password = "";
         };
         $scope.login = function (user) {
             FactoryUser.getUserByEmailPassword(user.email, user.password).then(function (res) {
                 if(res.data.length !== 0){
                     window.localStorage['sessionId'] = res.data[0].id;
+                    $location.url('/home');
                 }else{
                     $scope.alertLoginError = true;
                 }
             });
         };
         $scope.$on('$routeChangeStart', function(next, current) {
-            var url = current.$$route.templateUrl !== '/angularjs/app/views/login/index.html';
+            var url = current.$$route.templateUrl !== '/angularjs/app/views/login/index.html' &&  current.$$route.templateUrl !== '/angularjs/app/views/login/forgot-password.html';
+            var logoutEvent = typeof current.$$route.templateUrl === 'undefined';
             /* Without authorization */
-            if(window.localStorage['interceptor'] && url){
-                window.localStorage['auth'] = true;
+            if(typeof window.localStorage['sessionId'] === 'undefined' && url){
+                window.localStorage['auth'] = !logoutEvent;
             }
         });
         $scope.cleanDataStorage = function () {
             window.localStorage.removeItem('auth');
-            window.lacalStorage.removeItem('interceptor');
             window.location.reload();
         };
-        $scope.auth = typeof window.localStorage['auth'] !== 'undefined';
+        $scope.auth = typeof window.localStorage['auth'] !== 'undefined' && window.localStorage['auth'];
     });

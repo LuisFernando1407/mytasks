@@ -1,24 +1,27 @@
 <div class="container-fluid side text-center">
     <p><span class="glyphicon glyphicon-copyright-mark"></span> Development by Luís Fernando</p>
 </div>
+<!--header-->
+<!-- There is a more correct way of doing this -->
 <div class="authstatus">
-    <div ng-if="auth" class="alert alert-danger alert-dismissable">
+    <div ng-if="auth == 'true'" class="alert alert-danger alert-dismissable">
         <button ng-click="cleanDataStorage()" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-        <strong>Atenção!</strong>
+        <strong>Warning!</strong>
         <hr>
         <p>Status code: 401</p>
-        <p>Descrição: Usuário não autenticado!</p>
+        <p>Description: Non-authenticated user</p>
     </div>
 </div>
 <div class="authstatus">
     <div ng-if="alertLoginError" class="alert alert-warning alert-dismissable">
         <button ng-click="cleanDataStorage()" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
-        <strong>Atenção!</strong>
+        <strong>Warning!</strong>
         <hr>
         <p>Status code: 404</p>
-        <p>Descrição: Usuário não encontrado!</p>
+        <p>Description: User not found</p>
     </div>
 </div>
+<!-- endheader-->
 <div class="form">
     <ul class="tab-group">
         <li class="tab active"><a href="#signup">Sign Up</a></li>
@@ -27,39 +30,39 @@
     <div class="tab-content">
         <div id="signup">
             <h1>Sign Up for Free</h1>
-            <form action="#!/home" method="POST" ng-submit="register(data)">
+            <form method="POST" ng-submit="registerUser(userRegister)">
                 <div class="top-row">
                     <div class="field-wrap">
                         <label>
                             First Name<span class="req">*</span>
                         </label>
-                        <input type="text" ng-model="data.firstname" required autocomplete="off" />
+                        <input type="text" ng-model="userRegister.firstname" required autocomplete="off" />
                     </div>
                     <div class="field-wrap">
                         <label>
                             Last Name<span class="req">*</span>
                         </label>
-                        <input type="text" ng-model="data.lastname" required autocomplete="off"/>
+                        <input type="text" ng-model="userRegister.lastname" required autocomplete="off"/>
                     </div>
                 </div>
                 <div class="field-wrap">
                     <label>
                         Email Address<span class="req">*</span>
                     </label>
-                    <input type="email" ng-model="data.email" required autocomplete="off"/>
+                    <input type="email" ng-model="userRegister.email" required autocomplete="off"/>
                 </div>
                 <div class="field-wrap">
                     <label>
                         Set A Password<span class="req">*</span>
                     </label>
-                    <input type="password" ng-model="data.password" required autocomplete="off"/>
+                    <input type="password" ng-model="userRegister.password" required autocomplete="off"/>
                 </div>
-                <button type="submit" class="button button-block">Get Start</button>
+                <button id="loading" type="submit" data-loading-text="Loading..." class="button button-block">Get Start</button>
             </form>
         </div>
         <div id="login">
             <h1>Welcome Back!</h1>
-            <form action="#!/home" method="post" ng-submit="login(userLogin)">
+            <form method="POST" ng-submit="login(userLogin)">
                 <div class="field-wrap">
                     <label>
                         Email Address<span class="req">*</span>
@@ -72,7 +75,7 @@
                     </label>
                     <input type="password" required ng-model="userLogin.password" autocomplete="off"/>
                 </div>
-                <p class="forgot"><a href="#">Forgot Password?</a></p>
+                <p class="forgot"><a href="#!/forgot">Forgot Password?</a></p>
                 <button class="button button-block">Log In</button>
             </form>
         </div>
@@ -109,7 +112,14 @@
         }
 
     });
-
+    $('#loading').click(function () {
+        var $btn = $(this);
+        $btn.button('loading');
+        // simulating a timeout
+        setTimeout(function () {
+            $btn.button('reset');
+        }, 6000);
+    });
     $('.tab a').on('click', function (e) {
 
         e.preventDefault();

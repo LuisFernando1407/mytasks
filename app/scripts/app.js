@@ -10,22 +10,26 @@
  */
 angular.module('myApp', ['ngRoute'])
       .config(function ($routeProvider, $locationProvider, $httpProvider) {
-          var LOGIN = 'login/index.html';
+          var LOGIN = 'login/';
           var PATH = '/angularjs/app/';
 
           $routeProvider
               .when('/', {
-                  templateUrl: PATH + 'views/' + LOGIN,
+                  templateUrl: PATH + 'views/' + LOGIN + 'index.html',
                   controller:'MainCtrl'
               })
               .when('/home', {
                   templateUrl: PATH + 'views/home.html',
                   controller: 'HomeCtrl'
               })
+              .when('/forgot', {
+                  templateUrl: PATH + 'views/' + LOGIN + 'forgot-password.html',
+                  controller: 'ForgotPasswordCtrl'
+              })
               .otherwise({
                   redirectTo: '/'
               });
-          window.localStorage['interceptor'] = $httpProvider.interceptors.push('InterceptorAuth');
+          $httpProvider.interceptors.push('InterceptorAuth');
           /* Remove # from URL
           /*$locationProvider.html5Mode({
               enabled: true,

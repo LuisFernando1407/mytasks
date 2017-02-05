@@ -143,10 +143,10 @@ footer {
     background-color: rgba(19, 35, 47, 0.9);
 }
 .list-group-item.active:hover, .list-group-item.active:focus{
-    background-color: #179b77;
+    background-color: rgba(19, 35, 47, 0.9);
 }
 .btn.btn-primary{
-    background-color: #179b77;
+    background-color: rgba(19, 35, 47, 0.9);
 }
 .btn.btn-task{
     width: 48%;
@@ -171,6 +171,11 @@ footer {
 }
 .btn.btn-primary:visited{
    color: rgba(19, 35, 47, 0.9) !important;
+}
+.panel-task > .panel-heading {
+    color: #fff;
+    background-color: rgba(19, 35, 47, 0.9);
+    border-color: rgba(19, 35, 47, 0.9) !important;
 }
 @media screen and (min-width: 955px) {
     .btn.btn-task{

@@ -26,10 +26,19 @@ angular.module('myApp')
         /* Post user */
         obj.postUser = function (user) {
             return $http({
-                  url: BASE + 'users',
+                  url: BASE + 'users/user',
                   data: $.param(user),
                   method: 'POST',
                   headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+            });
+        };
+        /* Forgot password PUT */
+        obj.updateForgotPassword = function (user) {
+            return $http({
+                url: BASE + 'users/user',
+                data: $.param(user),
+                method: 'PUT',
+                headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
             });
         };
         return obj;

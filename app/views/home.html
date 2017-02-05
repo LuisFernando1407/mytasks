@@ -30,10 +30,10 @@
 </div>
     <div class="content">
         <div id="dash" class="col-md-12">
-            <div class="panel panel-default">
+            <div class="panel panel-task">
                 <div class="panel-heading">Welcome, {{response.firstname}}</div>
                 <div  ng-if="badge > 0" class="panel-body">
-                    <span>You have {{badge}} pending task</span>
+                    <span>You have {{badge}} new task{{badge === 2 ? 's' : ''}}</span>
                 </div>
                 <div  ng-if="badge === 0" class="panel-body">
                     <span>Add a task :)</span>
@@ -45,17 +45,20 @@
             <br>
             <br>
             <div id="demo" class="collapse">
-            <div class="panel panel-default">
+            <div class="panel panel-task">
                 <div class="panel-heading">Add new  task, {{response.firstname}}</div>
                 <div class="panel-body">
                     <div class="task">
+                        <!--header-->
+                        <!-- There is a more correct way of doing this -->
                         <div class="taskregistration">
                             <div ng-if="registration " class="alert alert-success alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
                                 <strong>Success!</strong><hr>
-                                <p>Task add with success!</p>
+                                <p>Task add with success</p>
                             </div>
                         </div>
+                        <!-- endheader-->
                         <form class="form-horizontal" ng-submit="registerTask(task)">
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">

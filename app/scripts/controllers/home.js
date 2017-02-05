@@ -21,13 +21,14 @@ angular.module('myApp')
       FactoryUser.getUserBySessionId(window.localStorage['sessionId']).then(function (res) {
           $scope.response = res.data[0];
       });
-      /* TODO ERRO AO VOLTAR PARA LOGIN */
+
       $scope.logout = function () {
           window.localStorage.removeItem('sessionId');
           window.localStorage.removeItem('interceptor');
           window.localStorage.removeItem('auth');
           window.localStorage.removeItem('alertLoginError');
-          $location.path('/');
+          window.location.reload();
+          $location.url('/');
       };
 
       $scope.registerTask = function (task) {
@@ -48,8 +49,9 @@ angular.module('myApp')
           $scope.task.remember = "";
           setTimeout(function () {
               window.location.reload();
-          }, 2000);
+          }, 1500);
       };
+
       FactoryUserTask.getTasksUserSession(window.localStorage['sessionId']).then(function (res) {
          $scope.badge = res.data.length;
          $scope.tasks = res.data;
@@ -60,13 +62,17 @@ angular.module('myApp')
           FactoryUserTask.UpdateUserTask(teskUp).then(function (res) {
               $scope.edit = res.data.message === "(Rows matched: 1  Changed: 1  Warnings: 0";
           });
+          setTimeout(function () {
+              window.location.reload();
+          }, 1500);
       };
+
       $scope.deleteTask = function (idTask) {
             FactoryUserTask.DeleteUserTask(idTask).then(function (res) {
                 $scope.delete = res.data.message === "";
             });
           setTimeout(function () {
               window.location.reload();
-          }, 2000);
+          }, 1500);
       };
   });
