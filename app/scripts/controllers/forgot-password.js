@@ -5,9 +5,9 @@
 
 /**
  * @ngdoc function
- * @name angularjs.controller:MainCtrl
+ * @name angularjs.controller:ForgotPasswordCtrl
  * @description
- * # MainCtrl, register, login
+ * # ForgotPasswordCtrl, forgot password
  * Controller of the myApp
  */
 angular.module('myApp')
