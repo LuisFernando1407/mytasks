@@ -177,6 +177,11 @@ footer {
     background-color: rgba(19, 35, 47, 0.9);
     border-color: rgba(19, 35, 47, 0.9) !important;
 }
+.btn-success-task{
+    color: #fff;
+    background-color: #179b77;
+}
+
 @media screen and (min-width: 955px) {
     .btn.btn-task{
         width: 48%;
