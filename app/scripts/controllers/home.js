@@ -67,6 +67,7 @@ angular.module('myApp')
           var response = res.data;
           var tasksFavorite = [];
           var tasksRemember = [];
+          var audio = new Audio('../app/audio/message.mp3');
 
          /* Return favorite tasks and remember notification */
          angular.forEach(response,function(value, key){
@@ -77,6 +78,7 @@ angular.module('myApp')
                  tasksRemember.push({title: value.title});
              }
           }, tasksFavorite);
+         $scope.audioNotification = audio;
          $scope.tasksRememberNotification = tasksRemember;
          $scope.badge = response.length;
          $scope.tasks = response;

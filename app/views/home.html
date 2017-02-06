@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" xmlns="http://www.w3.org/1999/html">
     <div class="row">
         <div class="wrapper">
             <div class="side-bar">
@@ -47,6 +47,7 @@
                     <p>{{tasksRememberNotification.length > 1 ? 'You have ' + tasksRememberNotification.length + ' tasks scheduled for today.' : 'You have ' + tasksRememberNotification.length + ' task scheduled for today.'}}</p>
                     <p ng-repeat="tasRemeberNotification in tasksRememberNotification">
                         Title: {{tasRemeberNotification.title}}
+                        {{audioNotification.play() === {} ? audioNotification.play() : ''}}
                     </p>
                 </div>
             </div>
