@@ -33,10 +33,22 @@
         <div class="panel panel-task">
             <div class="panel-heading">Welcome, {{response.firstname}}</div>
             <div ng-if="badge > 0" class="panel-body">
-                <span>You have {{badge}} new task{{badge === 2 ? 's' : ''}}.</span>
+                <span>You have {{badge}} new task{{badge > 1 ? 's' : ''}}.</span>
             </div>
             <div ng-if="badge === 0" class="panel-body">
                 <span>Add a task :)</span>
+            </div>
+            <div class="tasknotification">
+                <div ng-if="tasksRememberNotification.length > 0" class="alert alert-info alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Notification!</strong>
+                    <hr>
+                    <p>{{tasksRememberNotification.length > 1 ? 'You have ' + tasksRememberNotification.length + ' tasks scheduled for today.' : 'You have ' + tasksRememberNotification.length + ' task scheduled for today.'}}</p>
+                    <p ng-repeat="tasRemeberNotification in tasksRememberNotification">
+                        Title: {{tasRemeberNotification.title}}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -52,7 +64,7 @@
                         <!--header-->
                         <!-- There is a more correct way of doing this -->
                         <div class="taskregistration">
-                            <div ng-if="registration " class="alert alert-success alert-dismissable">
+                            <div ng-if="registration" class="alert alert-success alert-dismissable">
                                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
                                 </button>
                                 <strong>Success!</strong>

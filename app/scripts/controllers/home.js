@@ -9,8 +9,19 @@
  */
 angular.module('myApp')
   .controller('HomeCtrl', function ($scope,$filter, $location, FactoryUser, FactoryUserTask) {
+      /* Date now */
+      function dateNow() {
+          var now = new Date,
+              month = now.getMonth() + 1,
+              month_full = month < 10 ? '0' + month : month,
+              day = now.getDate() < 10 ? '0' + now.getDate() : now.getDate(),
+              year = now.getFullYear();
+
+          return day + "/" + month_full + "/" + year;
+      }
+
+      /* Convert MySQL format */
       function convertDateToMySQL(date) {
-          /* Convert MySQL format */
           var dd = date.substring(0,2);
           var mm = date.substring(3,5);
           var yyyy = date.substring(6,10);
@@ -55,13 +66,19 @@ angular.module('myApp')
       FactoryUserTask.getTasksUserSession(window.localStorage['sessionId']).then(function (res) {
           var response = res.data;
           var tasksFavorite = [];
-         $scope.badge = response.length;
-         /* Return favorite tasks */
+          var tasksRemember = [];
+
+         /* Return favorite tasks and remeber notification */
          angular.forEach(response,function(value, key){
              if(value.favorite === 1){
                  this.push(value);
              }
+             if(value.remember === dateNow()){
+                 tasksRemember.push({title: value.title});
+             }
           }, tasksFavorite);
+         $scope.tasksRememberNotification = tasksRemember;
+         $scope.badge = response.length;
          $scope.tasks = response;
          $scope.tasksFavorite = tasksFavorite;
       });

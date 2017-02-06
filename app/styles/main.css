@@ -210,6 +210,10 @@ footer {
 .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus{
     border-color: #fff;
 }
+.tasknotification{
+    width: 96%;
+    margin-left: 20px;
+}
 @media screen and (min-width: 955px) {
     .btn.btn-task{
         width: 48%;
