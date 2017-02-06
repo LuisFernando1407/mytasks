@@ -65,8 +65,7 @@ angular.module('myApp')
               window.location.reload();
           }, 1500);
       };
-
-
+      
       FactoryUserTask.getTasksUserSession(window.localStorage['sessionId']).then(function (res) {
           var response = res.data;
           var tasksFavorite = [];
@@ -88,6 +87,7 @@ angular.module('myApp')
          $scope.tasksFavorite = tasksFavorite;
          $scope.closeAlert =  typeof window.localStorage['closeAlert'] === 'undefined' ? true : window.localStorage['closeAlert'] ;
       });
+
       /* Close notification */
       $scope.closePlayer = true;
       $scope.stop = function () {
