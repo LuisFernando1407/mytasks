@@ -9,6 +9,7 @@
  */
 angular.module('myApp')
   .controller('HomeCtrl', function ($scope,$filter, $location, FactoryUser, FactoryUserTask) {
+      var audio = new Audio('../app/audio/message.mp3');
       /* Date now */
       function dateNow() {
           var now = new Date,
@@ -63,11 +64,11 @@ angular.module('myApp')
           }, 1500);
       };
 
+
       FactoryUserTask.getTasksUserSession(window.localStorage['sessionId']).then(function (res) {
           var response = res.data;
           var tasksFavorite = [];
           var tasksRemember = [];
-          var audio = new Audio('../app/audio/message.mp3');
 
          /* Return favorite tasks and remember notification */
          angular.forEach(response,function(value, key){
@@ -75,7 +76,7 @@ angular.module('myApp')
                  this.push(value);
              }
              if(value.remember === dateNow()){
-                 tasksRemember.push({title: value.title});
+                 tasksRemember.push({title: value.title , audio: audio});
              }
           }, tasksFavorite);
          $scope.audioNotification = audio;
@@ -84,7 +85,12 @@ angular.module('myApp')
          $scope.tasks = response;
          $scope.tasksFavorite = tasksFavorite;
       });
-
+      /* Close notification */
+      $scope.closePlayer = true;
+      $scope.stop = function () {
+            audio.pause();
+            $scope.closePlayer = false;
+      };
       $scope.putTask = function (teskUp) {
          teskUp.remember = convertDateToMySQL(teskUp.remember);
           FactoryUserTask.UpdateUserTask(teskUp).then(function (res) {
