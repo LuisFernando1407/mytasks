@@ -1,31 +1,38 @@
-<div class="container-fluid side text-center">
+<div class="img-logo">
+    <img src="../app/images/logo/logo.png" class="img">
+</div>
+<div class="text-logo">
     <p><span class="glyphicon glyphicon-copyright-mark"></span> Development by Luís Fernando</p>
 </div>
 <!--header-->
 <!-- There is a more correct way of doing this -->
 <div class="authstatus">
     <div ng-if="auth == 'true'" class="alert alert-danger alert-dismissable">
-        <button ng-click="cleanDataStorage()" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+        <button ng-click="cleanDataStorage()" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+        </button>
         <strong>Warning!</strong>
         <hr>
         <p>Status code: 401</p>
-        <p>Description: Non-authenticated user</p>
+        <p>Description: Non-authenticated user.</p>
     </div>
 </div>
 <div class="authstatus">
     <div ng-if="alertLoginError" class="alert alert-warning alert-dismissable">
-        <button ng-click="cleanDataStorage()" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+        <button ng-click="cleanDataStorage()" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
+        </button>
         <strong>Warning!</strong>
         <hr>
         <p>Status code: 404</p>
-        <p>Description: User not found</p>
+        <p>Description: User not found.</p>
     </div>
 </div>
 <!-- endheader-->
 <div class="form">
     <ul class="tab-group">
-        <li class="tab active"><a href="#signup">Sign Up</a></li>
-        <li class="tab"><a href="#login">Log In</a></li>
+        <li class="tab active"><a href="#signup">Sign Up</a>
+        </li>
+        <li class="tab"><a href="#login">Log In</a>
+        </li>
     </ul>
     <div class="tab-content">
         <div id="signup">
@@ -42,20 +49,20 @@
                         <label>
                             Last Name<span class="req">*</span>
                         </label>
-                        <input type="text" ng-model="userRegister.lastname" required autocomplete="off"/>
+                        <input type="text" ng-model="userRegister.lastname" required autocomplete="off" />
                     </div>
                 </div>
                 <div class="field-wrap">
                     <label>
                         Email Address<span class="req">*</span>
                     </label>
-                    <input type="email" ng-model="userRegister.email" required autocomplete="off"/>
+                    <input type="email" ng-model="userRegister.email" required autocomplete="off" />
                 </div>
                 <div class="field-wrap">
                     <label>
                         Set A Password<span class="req">*</span>
                     </label>
-                    <input type="password" ng-model="userRegister.password" required autocomplete="off"/>
+                    <input type="password" ng-model="userRegister.password" required autocomplete="off" />
                 </div>
                 <button id="loading" type="submit" data-loading-text="Loading..." class="button button-block">Get Start</button>
             </form>
@@ -67,16 +74,17 @@
                     <label>
                         Email Address<span class="req">*</span>
                     </label>
-                    <input type="email" ng-model="userLogin.email" required autocomplete="off"/>
+                    <input type="email" ng-model="userLogin.email" required autocomplete="off" />
                 </div>
                 <div class="field-wrap">
                     <label>
-                        Password<span class="req" >*</span>
+                        Password<span class="req">*</span>
                     </label>
-                    <input type="password" required ng-model="userLogin.password" autocomplete="off"/>
+                    <input type="password" required ng-model="userLogin.password" autocomplete="off" />
                 </div>
-                <p class="forgot"><a href="#!/forgot">Forgot Password?</a></p>
-                <button class="button button-block">Log In</button>
+                <p class="forgot"><a href="#!/forgot">Forgot Password?</a>
+                </p>
+                <button id="loading-login" data-loading-text="Loading..." class="button button-block">Log In</button>
             </form>
         </div>
     </div>
@@ -110,16 +118,30 @@
                 label.addClass('highlight');
             }
         }
-
     });
+
     $('#loading').click(function () {
+
         var $btn = $(this);
         $btn.button('loading');
         // simulating a timeout
         setTimeout(function () {
             $btn.button('reset');
-        }, 6000);
+        }, 5000);
+
     });
+
+    $('#loading-login').click(function () {
+
+        var $btn = $(this);
+        $btn.button('loading');
+        // simulating a timeout
+        setTimeout(function () {
+            $btn.button('reset');
+        }, 5000);
+
+    });
+
     $('.tab a').on('click', function (e) {
 
         e.preventDefault();

@@ -53,8 +53,17 @@ angular.module('myApp')
       };
 
       FactoryUserTask.getTasksUserSession(window.localStorage['sessionId']).then(function (res) {
-         $scope.badge = res.data.length;
-         $scope.tasks = res.data;
+          var response = res.data;
+          var tasksFavorite = [];
+         $scope.badge = response.length;
+         /* Return favorite tasks */
+         angular.forEach(response,function(value, key){
+             if(value.favorite === 1){
+                 this.push(value);
+             }
+          }, tasksFavorite);
+         $scope.tasks = response;
+         $scope.tasksFavorite = tasksFavorite;
       });
 
       $scope.putTask = function (teskUp) {

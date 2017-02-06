@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'Titillium Web';
+    src: url('../styles/font/titillium_web/TitilliumWeb-Light.ttf')
+}
 a:link, a:hover{
     text-decoration:none;
 }
@@ -126,11 +130,15 @@ footer {
     width: 100%;
 }
 .side {
+
     margin-top: 10px;
+
 }
 .task{
+
     width: 50%;
     margin-left: 200px;
+
 }
 .taskregistration{
     margin-right: -100px;
@@ -181,7 +189,27 @@ footer {
     color: #fff;
     background-color: #179b77;
 }
-
+.img-logo{
+    float: left;
+    margin-top: 10px;
+}
+.img-logo img{
+    width: 100%;
+    margin-top: 23px;
+    padding: 4px;
+    margin-left: 16px;
+}
+.text-logo p{
+    float: left;
+    margin-top: 90px;
+    margin-left: -160px;
+}
+.btn:hover, .btn:focus, .btn.focus{
+    color: #fff;
+}
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus{
+    border-color: #fff;
+}
 @media screen and (min-width: 955px) {
     .btn.btn-task{
         width: 48%;
