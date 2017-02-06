@@ -39,7 +39,7 @@
                 <span>Add a task :)</span>
             </div>
             <div class="tasknotification">
-                <div ng-if="tasksRememberNotification.length > 0 " class="alert alert-info alert-dismissable">
+                <div ng-if="tasksRememberNotification.length > 0 && closeAlert !== 'false'" class="alert alert-info alert-dismissable">
                     <button ng-click="stop()" type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
                     </button>
                     <strong>Notification!</strong> Press the close button to end the sound notification.

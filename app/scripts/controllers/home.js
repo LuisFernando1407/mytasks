@@ -39,11 +39,13 @@ angular.module('myApp')
           window.localStorage.removeItem('interceptor');
           window.localStorage.removeItem('auth');
           window.localStorage.removeItem('alertLoginError');
+          window.localStorage.removeItem('closeAlert');
           window.location.reload();
           $location.url('/');
       };
 
       $scope.registerTask = function (task) {
+          window.localStorage.removeItem('closeAlert');
           var date = convertDateToMySQL(task.remember);
           var data = {
               user_id:  window.localStorage['sessionId'],
@@ -84,15 +86,21 @@ angular.module('myApp')
          $scope.badge = response.length;
          $scope.tasks = response;
          $scope.tasksFavorite = tasksFavorite;
+         $scope.closeAlert =  typeof window.localStorage['closeAlert'] === 'undefined' ? true : window.localStorage['closeAlert'] ;
+         console.log(window.localStorage['closeAlert']);
       });
       /* Close notification */
       $scope.closePlayer = true;
       $scope.stop = function () {
             audio.pause();
             $scope.closePlayer = false;
+            window.localStorage['closeAlert'] = false;
+            window.location.reload();
       };
+
       $scope.putTask = function (teskUp) {
-         teskUp.remember = convertDateToMySQL(teskUp.remember);
+          window.localStorage.removeItem('closeAlert');
+          teskUp.remember = convertDateToMySQL(teskUp.remember);
           FactoryUserTask.UpdateUserTask(teskUp).then(function (res) {
               $scope.edit = res.data.message === "(Rows matched: 1  Changed: 1  Warnings: 0";
           });
@@ -102,9 +110,10 @@ angular.module('myApp')
       };
 
       $scope.deleteTask = function (idTask) {
-            FactoryUserTask.DeleteUserTask(idTask).then(function (res) {
-                $scope.delete = res.data.message === "";
-            });
+          window.localStorage.removeItem('closeAlert');
+          FactoryUserTask.DeleteUserTask(idTask).then(function (res) {
+              $scope.delete = res.data.message === "";
+          });
           setTimeout(function () {
               window.location.reload();
           }, 1500);
