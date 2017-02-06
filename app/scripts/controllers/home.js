@@ -68,7 +68,7 @@ angular.module('myApp')
           var tasksFavorite = [];
           var tasksRemember = [];
 
-         /* Return favorite tasks and remeber notification */
+         /* Return favorite tasks and remember notification */
          angular.forEach(response,function(value, key){
              if(value.favorite === 1){
                  this.push(value);

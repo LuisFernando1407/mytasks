@@ -7,7 +7,7 @@
  * @ngdoc function
  * @name angularjs.factory:InterceptorAuth
  * @description
- * # Intercpetor URL AUTH
+ * # Intercpetor url auth
  * Factory of the myApp
  */
 angular.module('myApp')
