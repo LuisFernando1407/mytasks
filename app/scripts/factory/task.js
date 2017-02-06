@@ -15,7 +15,7 @@ angular.module('myApp')
         /* Server Node.js */
         var BASE = 'http://localhost:3000/';
         var obj = {};
-        /* Get taskUser by id*/
+        /* Get task user by id*/
         obj.getTasksUserSession = function (id) {
             return $http.get(BASE + 'tasks/' + id);
         };
