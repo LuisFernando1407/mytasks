@@ -31,7 +31,7 @@ angular.module('myApp')
             });
         };
         $scope.$on('$routeChangeStart', function(next, current) {
-            var url = current.$$route.templateUrl !== '/angularjs/app/views/login/index.html' &&  current.$$route.templateUrl !== '/angularjs/app/views/login/forgot-password.html';
+            var url = current.$$route.templateUrl !== '/mytasks/app/views/login/index.html' &&  current.$$route.templateUrl !== '/mytasks/app/views/login/forgot-password.html';
             var logoutEvent = typeof current.$$route.templateUrl === 'undefined';
             /* Without authorization */
             if(typeof window.localStorage['sessionId'] === 'undefined' && url){

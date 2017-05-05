@@ -11,7 +11,7 @@
 angular.module('myApp', ['ngRoute'])
       .config(function ($routeProvider, $locationProvider, $httpProvider) {
           var LOGIN = 'login/';
-          var PATH = '/angularjs/app/';
+          var PATH = '/mytasks/app/';
 
           $routeProvider
               .when('/', {

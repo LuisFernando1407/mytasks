@@ -199,8 +199,8 @@
             <p class="list-group-item active">
                 Your favorite tasks
             </p>
-            <div ng-if="tasksFavorite.length === 0" class="panel-body">
-                <span>Sorry, you do not have any favorite chores.</span>
+            <div ng-if="tasksFavorite.length === 0"  class="panel panel-info">
+                <div class="panel-body">Sorry, you do not have any favorite chores.</div>
             </div>
             <div class="panel-group" role="tablist" aria-multiselectable="true">
                 <div ng-repeat="tskFavorite in tasksFavorite" class="panel panel-default">

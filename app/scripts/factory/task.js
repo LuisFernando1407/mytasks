@@ -22,7 +22,7 @@ angular.module('myApp')
         /* Post task */
         obj.postUserTask = function (task) {
             return $http({
-                url: BASE + 'tasks',
+                url: BASE + 'tasks/task',
                 data: $.param(task),
                 method: 'POST',
                 headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
