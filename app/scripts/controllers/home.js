@@ -8,7 +8,48 @@
  * Controller of the myApp
  */
 angular.module('myApp')
-  .controller('HomeCtrl', function ($scope,$filter, $location, FactoryUser, FactoryUserTask) {
+  
+  /* Persiste in tasks */
+  .run(function($rootScope, FactoryUserTask) {
+    FactoryUserTask.getTasksUserSession(window.localStorage['sessionId']).then(function (res) {
+        var response = res.data;
+        var event = [];
+         
+         /* Return title tasks and remember notification */
+         angular.forEach(response,function(value, key){
+            this.push({title: value.title, start: value.remember_me});
+          }, event);
+        /* Global */
+        $rootScope.events = event;
+      });
+  })
+  .controller('HomeCtrl', function ($scope, $rootScope, $filter, $location, $compile, FactoryUser, FactoryUserTask, uiCalendarConfig) {
+      var BASE = 'http://localhost:3000/';
+      /* config object */
+      $scope.uiConfig = {
+          calendar:{
+              eventRender: function( event, element, view ) {
+                  element.attr({
+                      "tooltip-placement":"top",
+                      "uib-tooltip": event.title,
+                      "tooltip-append-to-body": true
+                  });
+                  $compile(element)($scope);
+              },
+              height: 500,
+              editable: false,
+              defaultView:'month',
+              header:{
+                  left: 'title',
+                  center: '',
+                  right: 'today month agendaWeek prev,next'
+              },
+              eventClick: $scope.alertOnEventClick,
+              eventDrop: $scope.alertOnDrop,
+              eventResize: $scope.alertOnResize,
+          }
+      };
+     
       var audio = new Audio('../app/audio/message.mp3');
       /* Date now */
       function dateNow() {
@@ -65,13 +106,13 @@ angular.module('myApp')
               window.location.reload();
           }, 1500);
       };
-
-
-      FactoryUserTask.getTasksUserSession(window.localStorage['sessionId']).then(function (res) {
+       /* TODO: Error of transition tabs - Date Fades away*/
+       FactoryUserTask.getTasksUserSession(window.localStorage['sessionId']).then(function (res) {
           var response = res.data;
           var tasksFavorite = [];
           var tasksRemember = [];
-
+          var event = [];
+         
          /* Return favorite tasks and remember notification */
          angular.forEach(response,function(value, key){
              if(value.favorite === 1){
@@ -81,6 +122,7 @@ angular.module('myApp')
                  tasksRemember.push({title: value.title , audio: audio});
              }
           }, tasksFavorite);
+
          $scope.audioNotification = audio;
          $scope.tasksRememberNotification = tasksRemember;
          $scope.badge = response.length;
@@ -88,6 +130,9 @@ angular.module('myApp')
          $scope.tasksFavorite = tasksFavorite;
          $scope.closeAlert =  typeof window.localStorage['closeAlert'] === 'undefined' ? true : window.localStorage['closeAlert'] ;
       });
+      /* Add tasks to calendar */ 
+      $scope.eventSources = [$rootScope.events];
+      
       /* Close notification */
       $scope.closePlayer = true;
       $scope.stop = function () {
@@ -117,4 +162,4 @@ angular.module('myApp')
               window.location.reload();
           }, 1500);
       };
-  });
+});

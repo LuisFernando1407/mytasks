@@ -54,6 +54,12 @@
                 </div>
             </div>
         </div>
+        <div style="margin-top:-10px;" class="panel panel-task">
+            <div style="margin-top:20px ;width:70%; margin-left: 180px;" align="center" class="calendario">
+                <div  ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="myCalendar"></div>
+                <br> 
+            </div>
+        </div>
     </div>
     <div id="tas" class="col-md-12 hidden">
         <button id="newTask" class="btn btn-primary" data-toggle="collapse" data-target="#demo">New task</button>
@@ -229,8 +235,8 @@
         </div>
     </div>
 </div>
-<footer class="container-fluid text-center">
-    <p><span class="glyphicon glyphicon-copyright-mark"></span> Development by Luís Fernando</p>
+<footer style="margin-left: 120px;" class="container-fluid text-center">
+    <p><span class="glyphicon glyphicon-copyright-mark"></span> Development by LRRW</p>
 </footer>
 <script>
     $(document).ready(function(){

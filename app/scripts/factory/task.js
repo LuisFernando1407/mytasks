@@ -19,6 +19,7 @@ angular.module('myApp')
         obj.getTasksUserSession = function (id) {
             return $http.get(BASE + 'tasks/' + id);
         };
+        
         /* Post task */
         obj.postUserTask = function (task) {
             return $http({
