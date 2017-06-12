@@ -17,12 +17,19 @@ angular.module('myApp')
          
          /* Return title tasks and remember notification */
          angular.forEach(response,function(value, key){
-            this.push({title: value.title, start: value.remember_me});
+            if(value.priority === 1 && value.status === 0){
+              this.push({color: '#f00',  textColor: '#fff', title: value.title + "\n - " + value.task_user, start: value.remember_me});
+            }else if(value.status === 1){
+              this.push({color: '#179b77',  textColor: '#fff', title: value.title, start: value.remember_me});
+            }else{
+              this.push({color: 'RGB(66,133,244)',  textColor: '#fff', title: value.title, start: value.remember_me});
+            }
           }, event);
         /* Global */
         $rootScope.events = event;
       });
   })
+
   .controller('HomeCtrl', function ($scope, $rootScope, $filter, $location, $compile, FactoryUser, FactoryUserTask, uiCalendarConfig) {
       var BASE = 'http://localhost:3000/';
       /* config object */
@@ -49,7 +56,6 @@ angular.module('myApp')
               eventResize: $scope.alertOnResize,
           }
       };
-     
       var audio = new Audio('../app/audio/message.mp3');
       /* Date now */
       function dateNow() {
@@ -93,9 +99,10 @@ angular.module('myApp')
               title: task.title,
               task: task.task,
               remember: date,
+              priority: $('.btn-toggle-priority').find('.btn-primary').val(),
               favorite:  $('.btn-toggle').find('.btn-primary').val()
           };
-
+        
           FactoryUserTask.postUserTask(data).then(function (res) {
               $scope.registration = res.data.message === "";
           });
@@ -106,6 +113,7 @@ angular.module('myApp')
               window.location.reload();
           }, 1500);
       };
+
        /* TODO: Error of transition tabs - Date Fades away*/
        FactoryUserTask.getTasksUserSession(window.localStorage['sessionId']).then(function (res) {
           var response = res.data;
@@ -159,6 +167,16 @@ angular.module('myApp')
               $scope.delete = res.data.message === "";
           });
           setTimeout(function () {
+              window.location.reload();
+          }, 1500);
+      };
+
+      /* Tasks finish */
+      $scope.taskFinish = function(id){
+        FactoryUserTask.finishTask(id).then(function(response){
+          $scope.finishTsk = response.data.message === "(Rows matched: 1  Changed: 1  Warnings: 0";
+        });
+        setTimeout(function () {
               window.location.reload();
           }, 1500);
       };

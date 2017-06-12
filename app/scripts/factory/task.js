@@ -42,5 +42,10 @@ angular.module('myApp')
         obj.DeleteUserTask = function (id) {
             return $http.delete(BASE + 'tasks/task/' + id);
         };
+
+        /* Finish task */
+        obj.finishTask = function (id) {
+            return $http.put(BASE + 'tasks/task/finish/' + id);
+        };
         return obj;
     });
