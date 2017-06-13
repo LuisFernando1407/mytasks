@@ -54,8 +54,22 @@
                 </div>
             </div>
         </div>
+        <!-- Modal Calendar-->
+        <script type="text/ng-template" id="newModalContent.html">
+                <div class="modal-header">
+                    <h3>{{eventsObj.title}}</h3>
+                </div>
+                <div class="modal-body">
+                        <p>Task: {{eventsObj.task}}</p>
+                        <p>Date: {{eventsObj.remember}}</p>
+                </div>
+                <div class="modal-footer">
+                    <div class="alert alert-warning text-uppercase text-center" role="alert">Esc to exit</div>
+                </div>
+        </script>
         <div style="margin-top:-10px;" class="panel panel-task">
             <div style="margin-top:20px ;width:70%; margin-left: 180px;" align="center" class="calendario">
+            <p ng-if="badge === 0" class="triangle-isosceles">No calendar tasks :(</p>
                 <div  ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="myCalendar"></div>
                 <br> 
             </div>
@@ -127,6 +141,9 @@
             </div>
         </div>
         <div class="list-group">
+            <p ng-if="finishTsk" class="alert alert-success alert-dismissable">
+                Task completed with success :)
+            </p>
             <p class="list-group-item active">
                 My Annotations
             </p>
@@ -188,6 +205,18 @@
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
                                                 <input type="text" ng-model="ts.remember" id="remember_me" class="form-control" placeholder="Remember">
+                                            </div>
+                                        </div>
+                                         <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <span>Priority</span>
+                                                <hr>
+                                                <span class="label label-success">1 = Priority</span>
+                                                <span class="label label-default">0 = No priority</span>
+                                            </div>
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <br>
+                                                <input pattern="[0-1]+$" type="text" ng-model="ts.priority" class="form-control">
                                             </div>
                                         </div>
                                         <div class="form-group">

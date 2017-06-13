@@ -18,11 +18,11 @@ angular.module('myApp')
          /* Return title tasks and remember notification */
          angular.forEach(response,function(value, key){
             if(value.priority === 1 && value.status === 0){
-              this.push({color: '#f00',  textColor: '#fff', title: value.title + "\n - " + value.task_user, start: value.remember_me});
+              this.push({color: '#f00',  textColor: '#fff', title: value.title, start: value.remember_me, task: value.task_user, remember: value.remember});
             }else if(value.status === 1){
-              this.push({color: '#179b77',  textColor: '#fff', title: value.title, start: value.remember_me});
+              this.push({color: '#179b77',  textColor: '#fff', title: value.title, start: value.remember_me, task: value.task_user, remember: value.remember});
             }else{
-              this.push({color: 'RGB(66,133,244)',  textColor: '#fff', title: value.title, start: value.remember_me});
+              this.push({color: 'RGB(66,133,244)',  textColor: '#fff', title: value.title, start: value.remember_me, task: value.task_user, remember: value.remember});
             }
           }, event);
         /* Global */
@@ -30,15 +30,29 @@ angular.module('myApp')
       });
   })
 
-  .controller('HomeCtrl', function ($scope, $rootScope, $filter, $location, $compile, FactoryUser, FactoryUserTask, uiCalendarConfig) {
+  .controller('HomeCtrl', function ($scope,  $uibModal, $rootScope, $filter, $location, $compile, FactoryUser, FactoryUserTask, uiCalendarConfig) {
       var BASE = 'http://localhost:3000/';
+      // Open modal from modal
+      $scope.openModal = function (eventObj) {
+        console.log(eventObj);
+        $rootScope.eventsObj = eventObj;
+        var modalInstance = $uibModal.open({
+          templateUrl: 'newModalContent.html',
+          backdrop: false,
+          resolve: {
+            event: function () {
+              return eventObj;
+            }
+          }
+        });
+      }
       /* config object */
       $scope.uiConfig = {
           calendar:{
               eventRender: function( event, element, view ) {
-                  element.attr({
+                      element.attr({
                       "tooltip-placement":"top",
-                      "uib-tooltip": event.title,
+                      "uib-tooltip": event.color == '#179b77' ? 'Completed' : event.color == '#f00' ? 'Priority' : 'No priority',
                       "tooltip-append-to-body": true
                   });
                   $compile(element)($scope);
@@ -51,11 +65,14 @@ angular.module('myApp')
                   center: '',
                   right: 'today month agendaWeek prev,next'
               },
-              eventClick: $scope.alertOnEventClick,
+              eventClick: function(event, element, view){  
+                 $scope.openModal(event);
+              },
               eventDrop: $scope.alertOnDrop,
               eventResize: $scope.alertOnResize,
           }
       };
+
       var audio = new Audio('../app/audio/message.mp3');
       /* Date now */
       function dateNow() {
@@ -180,4 +197,4 @@ angular.module('myApp')
               window.location.reload();
           }, 1500);
       };
-});
+})
