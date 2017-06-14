@@ -32,7 +32,7 @@ angular.module('myApp')
 
   .controller('HomeCtrl', function ($scope,  $uibModal, $rootScope, $filter, $location, $compile, FactoryUser, FactoryUserTask, uiCalendarConfig) {
       var BASE = 'http://localhost:3000/';
-      // Open modal from modal
+      /* Open modal */
       $scope.openModal = function (eventObj) {
         console.log(eventObj);
         $rootScope.eventsObj = eventObj;
@@ -197,4 +197,10 @@ angular.module('myApp')
               window.location.reload();
           }, 1500);
       };
+
+      $scope.items = ['Email Notification','Sound notification'];
+      $scope.toggle = function (item) {
+        console.log(item);
+      };
+
 })

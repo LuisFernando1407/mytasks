@@ -17,7 +17,7 @@
                             <a href="javascrip:void(0);" id="favorite">Favorite <span class="badge">{{tasksFavorite.length}}</span><span class="glyphicon glyphicon-star pull-right"></span></a>
                         </li>
                         <li>
-                            <a href="javascrip:void(0);" id="settings" data-toggle="popover" title="Notification" data-content="Sorry, it's still being implemented.">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a>
+                            <a role="button" data-toggle="modal" data-target="#settings" href="">Settings <span class="glyphicon glyphicon-cog pull-right"></span></a>
                         </li>
                         <li>
                             <a href="#" ng-click="logout()">Logout <span class="glyphicon glyphicon-log-out pull-right"></span></a>
@@ -27,6 +27,22 @@
             </div>
         </div>
     </div>
+</div>
+<div id="settings" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      Settings
+      </div>
+      <div class="modal-body">
+              <div layout="row" layout-wrap flex>
+                <div class="demo-select-all-checkboxes" flex="100" ng-repeat="item in items">
+                    <md-checkbox class="green" ng-click="toggle(item)">{{item}}</md-checkbox>
+                </div>
+          </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="content">
     <div id="dash" class="col-md-12">
@@ -56,16 +72,16 @@
         </div>
         <!-- Modal Calendar-->
         <script type="text/ng-template" id="newModalContent.html">
+            <div style="background-color: {{eventsObj.color}}; color: #fff">
                 <div class="modal-header">
                     <h3>{{eventsObj.title}}</h3>
                 </div>
                 <div class="modal-body">
                         <p>Task: {{eventsObj.task}}</p>
                         <p>Date: {{eventsObj.remember}}</p>
+                        <div style="margin-top: 40px; " class="alert alert-warning text-uppercase text-center" role="alert">Esc to exit</div>
                 </div>
-                <div class="modal-footer">
-                    <div class="alert alert-warning text-uppercase text-center" role="alert">Esc to exit</div>
-                </div>
+            </div>
         </script>
         <div style="margin-top:-10px;" class="panel panel-task">
             <div style="margin-top:20px ;width:70%; margin-left: 180px;" align="center" class="calendario">
@@ -348,7 +364,5 @@
         $('#newTask').click(function () {
             $(".side-bar").css("height", "155%");
         });
-
-        $('#settings').popover();
     });
 </script>

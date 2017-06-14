@@ -248,3 +248,17 @@ footer {
   border-style: solid;
   border-color: #179b77 transparent;
 }
+.checkboxdemoSelectAll .demo-legend {
+  color: #3F51B5; }
+
+.checkboxdemoSelectAll .demo-fieldset {
+  border-style: solid;
+  border-width: 1px;
+  height: 100%; }
+
+.checkboxdemoSelectAll .demo-select-all-checkboxes {
+  padding-left: 30px; }
+
+md-checkbox.md-checked.green .md-icon {
+ background-color: #179b77;
+}

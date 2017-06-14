@@ -8,7 +8,7 @@
  *
  * Main module of the application.
  */
-angular.module('myApp', ['ngRoute', 'ui.calendar', 'ui.bootstrap'])
+angular.module('myApp', ['ngRoute', 'ui.calendar', 'ui.bootstrap', 'ngMaterial'])
       .config(function ($routeProvider, $locationProvider, $httpProvider) {
           var LOGIN = 'login/';
           var PATH = '/mytasks/app/';
