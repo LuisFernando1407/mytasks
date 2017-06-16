@@ -36,8 +36,11 @@
       </div>
       <div class="modal-body">
               <div layout="row" layout-wrap flex>
-                <div class="demo-select-all-checkboxes" flex="100" ng-repeat="item in items">
-                    <md-checkbox class="green" ng-click="toggle(item)">{{item}}</md-checkbox>
+                <div class="demo-select-all-checkboxes" flex="100">
+                    <md-checkbox class="green" ng-model="mail" ng-click="toggle(mail, 'mail')">Email Notification</md-checkbox>
+                </div>
+                <div class="demo-select-all-checkboxes" flex="100">
+                    <md-checkbox class="green" ng-model="audio" ng-click="toggle(audio, 'audio')">Sound Notification</md-checkbox>
                 </div>
           </div>
       </div>
@@ -72,7 +75,6 @@
         </div>
         <!-- Modal Calendar-->
         <script type="text/ng-template" id="newModalContent.html">
-            <div style="background-color: {{eventsObj.color}}; color: #fff">
                 <div class="modal-header">
                     <h3>{{eventsObj.title}}</h3>
                 </div>
@@ -81,7 +83,6 @@
                         <p>Date: {{eventsObj.remember}}</p>
                         <div style="margin-top: 40px; " class="alert alert-warning text-uppercase text-center" role="alert">Esc to exit</div>
                 </div>
-            </div>
         </script>
         <div style="margin-top:-10px;" class="panel panel-task">
             <div style="margin-top:20px ;width:70%; margin-left: 180px;" align="center" class="calendario">
@@ -299,9 +300,6 @@
         </div>
     </div>
 </div>
-<footer style="margin-left: 120px;" class="container-fluid text-center">
-    <p><span class="glyphicon glyphicon-copyright-mark"></span> Development by LRRW</p>
-</footer>
 <script>
     $(document).ready(function(){
 

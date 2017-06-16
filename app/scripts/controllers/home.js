@@ -143,7 +143,12 @@ angular.module('myApp')
              if(value.favorite === 1){
                  this.push(value);
              }
-             if(value.remember === dateNow()){
+             if(value.remember === dateNow()){ 
+                 if(typeof window.localStorage['notify'] == 'undefined'){
+                    var sendMail = {mail: $scope.response.email, title: value.title};              
+                    FactoryUserTask.sendMail(sendMail).then(function(res){console.log('Send mail...')});
+                    window.localStorage['notify'] = 1;
+                 }               
                  tasksRemember.push({title: value.title , audio: audio});
              }
           }, tasksFavorite);
@@ -189,7 +194,7 @@ angular.module('myApp')
       };
 
       /* Tasks finish */
-      $scope.taskFinish = function(id){
+      $scope.taskFinish = function (id) {
         FactoryUserTask.finishTask(id).then(function(response){
           $scope.finishTsk = response.data.message === "(Rows matched: 1  Changed: 1  Warnings: 0";
         });
@@ -198,9 +203,29 @@ angular.module('myApp')
           }, 1500);
       };
 
-      $scope.items = ['Email Notification','Sound notification'];
-      $scope.toggle = function (item) {
-        console.log(item);
-      };
+      /* TODO: CHECK STATE NOTIFICATIONS */
+      FactoryUserTask.getNotification(window.localStorage['sessionId']).then(function(res){
 
-})
+      });
+
+      $scope.mail = true;
+      $scope.audio = true;
+      $scope.toggle = function (verdict, item) {
+        var mail, audio;
+        if(item === 'mail' && verdict){
+          mail =  0;
+          audio = 1;
+        }else if(item === 'audio' && verdict){
+          audio = 0;
+          mail = 1;
+        }else if(item === 'mail' && verdict === false){
+          mail =  1;
+          audio = 1;
+        }else if(item === 'audio' && verdict === false){
+          audio =  1;
+          mail = 1;
+        }
+        var send = [{email: mail, audio: audio}];
+        console.log(send);
+      };
+});

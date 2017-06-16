@@ -47,5 +47,26 @@ angular.module('myApp')
         obj.finishTask = function (id) {
             return $http.put(BASE + 'tasks/task/finish/' + id);
         };
+
+        /* State notification */
+        obj.postNotification = function(stateNotification){
+            return $http({
+                  url: BASE + 'users/user/check/notification',
+                  data: $.param(stateNotification),
+                  method: 'POST',
+                  headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+            });
+        }
+
+        /* State notification */
+        obj.getNotification = function(id){
+            return $http.get(BASE + 'users/user/check/notification/' + id);
+        }
+
+        /* State notification */
+        obj.sendMail = function(send){
+            return $http.get(BASE + 'users/user/mail/' + send.mail + '/' + send.title);
+        }
+
         return obj;
     });

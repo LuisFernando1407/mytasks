@@ -8,7 +8,7 @@
  * Controller of the myApp
  */
 angular.module('myApp')
-    .controller('MainCtrl', function ($scope, $location, FactoryUser) {
+    .controller('MainCtrl', function ($scope, $location, FactoryUser, FactoryUserTask) {
         /* Post => Return Id*/
         $scope.registerUser = function (user) {
             FactoryUser.postUser(user).then(function (res) {
@@ -24,6 +24,8 @@ angular.module('myApp')
             FactoryUser.getUserByEmailPassword(user.email, user.password).then(function (res) {
                 if(res.data.length !== 0){
                     window.localStorage['sessionId'] = res.data[0].id;
+                    var send = {id_user: window.localStorage['sessionId'], email: 1, audio: 1};
+                    FactoryUserTask.postNotification(send).then(function(res){});
                     $location.url('/home');
                 }else{
                     $scope.alertLoginError = true;
