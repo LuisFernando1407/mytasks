@@ -90,6 +90,42 @@
                 <div  ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" calendar="myCalendar"></div>
                 <br> 
             </div>
+            <div align="center">
+                <div ng-if="rsreport" style="width: 70%;" class="alert alert-warning alert-dismissible text-center" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Warning!</strong> No task for this period.
+                </div>
+            </div>
+            <div class="text-right" style="height: 50px; margin-right: 5px;">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success-task" data-toggle="modal" data-target="#report">
+                    Generate Report
+                </button>  
+            </div>
+        </div>
+        <div id="report" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Generate Report
+                </div>
+                <div class="modal-body">
+                    <form method="POST" ng-submit="generateReport(report)" name="report">
+                        <div class="form-group">
+                            <input type="text" ng-model="report.date_i" id="date_i" class="form-control" placeholder="Date initial" required>    
+                        </div>
+                        <div class="form-group">
+                            <input type="text" ng-model="report.date_f" id="date_f" class="form-control" placeholder="Date final" required>    
+                        </div>
+                        <div class="text-center">
+                            <button ng-disabled="report.date_i.$valid" type="submit" class="btn btn-success-task">
+                                Generate
+                            </button>
+                        </div>  
+                    </form>
+                </div>
+            </div>
+          </div>
         </div>
     </div>
     <div id="tas" class="col-md-12 hidden">
@@ -325,6 +361,22 @@
         });
 
         $('#remember').datepicker({
+
+            format: "dd/mm/yyyy",
+            language: "pt-BR",
+            minViewMode: 0
+
+        });
+
+        $('#date_i').datepicker({
+
+            format: "dd/mm/yyyy",
+            language: "pt-BR",
+            minViewMode: 0
+
+        });
+
+        $('#date_f').datepicker({
 
             format: "dd/mm/yyyy",
             language: "pt-BR",

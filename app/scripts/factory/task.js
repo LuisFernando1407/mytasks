@@ -58,14 +58,24 @@ angular.module('myApp')
             });
         }
 
-        /* State notification */
+        /* All notification */
         obj.getNotification = function(id){
             return $http.get(BASE + 'users/user/check/notification/' + id);
         }
 
-        /* State notification */
+        /* Send Mail */
         obj.sendMail = function(send){
             return $http.get(BASE + 'users/user/mail/' + send.mail + '/' + send.title);
+        }
+
+        /* Generate Report */
+        obj.gReport = function(dates){
+             return $http({
+                  url: BASE + 'tasks/task/greport', 
+                  data: $.param(dates),
+                  method: 'POST',
+                  headers : {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+            });
         }
 
         return obj;
