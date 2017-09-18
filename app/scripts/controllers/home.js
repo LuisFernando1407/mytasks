@@ -14,21 +14,21 @@ angular.module('myApp')
     FactoryUserTask.getTasksUserSession(window.localStorage['sessionId']).then(function (res) {
         var response = res.data;
         var event = [];
-         
-         /* Return title tasks and remember notification */
-         angular.forEach(response,function(value, key){
+
+        /* Return title tasks and remember notification */
+        angular.forEach(response,function(value, key){
             if(value.priority === 1 && value.status === 0){
-              this.push({color: '#f00',  textColor: '#fff', title: value.title, start: value.remember_me, task: value.task_user, remember: value.remember});
+                this.push({color: '#f00',  textColor: '#fff', title: value.title, start: value.remember_me, task: value.task_user, remember: value.remember});
             }else if(value.status === 1){
-              this.push({color: '#179b77',  textColor: '#fff', title: value.title, start: value.remember_me, task: value.task_user, remember: value.remember});
+                this.push({color: '#179b77',  textColor: '#fff', title: value.title, start: value.remember_me, task: value.task_user, remember: value.remember});
             }else{
-              this.push({color: 'RGB(66,133,244)',  textColor: '#fff', title: value.title, start: value.remember_me, task: value.task_user, remember: value.remember});
+                this.push({color: 'RGB(66,133,244)',  textColor: '#fff', title: value.title, start: value.remember_me, task: value.task_user, remember: value.remember});
             }
-          }, event);
+        }, event);
         /* Global */
         $rootScope.events = event;
-      });
-  })
+    });
+})
 
   .controller('HomeCtrl', function ($scope,  $uibModal, $rootScope, $filter, $location, $compile, FactoryUser, FactoryUserTask, uiCalendarConfig) {
       var BASE = 'http://localhost:3000/';
@@ -131,7 +131,6 @@ angular.module('myApp')
           }, 1500);
       };
 
-       /* TODO: Error of transition tabs - Date Fades away*/
        FactoryUserTask.getTasksUserSession(window.localStorage['sessionId']).then(function (res) {
           var response = res.data;
           var tasksFavorite = [];
@@ -297,7 +296,7 @@ angular.module('myApp')
                 doc.addImage(logo,'PNG',40, 10, 55, 45);
               }
           });
-          doc.save('Report-System_My_Tasks.pdf');
+          doc.save('Report-System_My_Tasks['+ $scope.response.firstname +'].pdf');
           /* Closes dialog */
           $dialog.modal('hide');
           $scope.report.date_i = "";
