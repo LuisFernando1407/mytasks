@@ -2,7 +2,7 @@
 
 /**
  * @ngdoc function
- * @name angularApp.controller:HomeCtrl
+ * @name angularjs.controller:HomeCtrl
  * @description
  * # HomeCtrl before login
  * Controller of the myApp
